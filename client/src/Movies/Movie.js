@@ -28,7 +28,7 @@ const Movie = props => {
     return <div>Loading movie information...</div>;
   }
 
-  const { title, director, metascore, stars } = movie;
+  // const { title, director, metascore, stars } = movie;
   return (
     <div className="save-wrapper">
       <MovieCard info={movie} />
@@ -39,8 +39,7 @@ const Movie = props => {
 
 export default Movie;
 
-{
-  /* <div className="movie-card">
+/* <div className="movie-card">
         <h2>{title}</h2>
         <div className="movie-director">
           Director: <em>{director}</em>
@@ -56,4 +55,3 @@ export default Movie;
           </div>
         ))}
       </div> */
-}
