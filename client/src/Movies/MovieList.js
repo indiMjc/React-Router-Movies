@@ -1,30 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 
 const MovieList = props => {
-  const [movies, setMovies] = useState([]);
-  console.log(props);
   useEffect(() => {
     const getMovies = () => {
       axios
         .get("http://localhost:5000/api/movies")
-        .then(response => {
-          setMovies(response.data);
+        .then(async response => {
+          await props.states[1](response.data);
         })
         .catch(error => {
           console.error("Server Error", error);
         });
     };
-
     getMovies();
-  }, []);
+  }, [props.states]);
 
   return (
     <div className="movie-list">
-      {movies.map(movie => (
-        <Link to={`/movies/${movie.id}`}>
+      {props.states[0].map(movie => (
+        <Link key={movie.id} to={`/movies/${movie.id}`}>
           <MovieDetails key={movie.id} movie={movie} />
         </Link>
       ))}
@@ -34,7 +31,7 @@ const MovieList = props => {
 
 function MovieDetails({ movie }) {
   // const { title, director, metascore, stars } = movie;
-  return <MovieCard info={movie} />;
+  return <MovieCard key={movie.id} info={movie} />;
 }
 
 export default MovieList;
